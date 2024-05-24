@@ -5,7 +5,20 @@ class SessionsController < ApplicationController
 
   def create
     # authenticate the user
-    # 1. try to find the user by their unique identifier (email)
+
+    # 1. Captura el username y el password que ingreso el usuario al momento de loguearse.
+
+    #2. Anda al database, a la table users y determina si es que ese usuario existe comparando
+    #   email que ingreso con los de la tabla, con find_by.
+    
+    #3. Si es que el email que ingreso si estaba en la tabla (ES DECIR EL RESULTADO DEL FIND_BY
+    # es diferente a nil (nil es vacio, si es que el email que puso no coincidia con ninguno en la
+    # tabla), entonces pregunta si es que el password de ese usuario que esta encryptado en la base
+    # de datos es = al password que acaba de ingresar el usuario. (IMPORTANTISISISISISIMO, esa
+    # pregunta se hacce con: BCrypt::Password.new(@user_password) == @user_entered_password). En
+    # caso si coincida que le diga Welcome y vaya al link "/companies", casos contrarios, que 
+    # vaya al link "/login" nuevamente, por lo tanto, no dejandolos entrar.
+
     @user_entered_email = params["email"]
     @user_entered_password = params["password"]
 
@@ -26,13 +39,7 @@ class SessionsController < ApplicationController
     else
       redirect_to "/login"
     end
-    #si es que el email que ingreso el usuario no estaba en la tabla va a traer NIL, porque
-    #no encontro coincidencia, caso contrario va traer el email del usuario. Lo mismo para el
-    #password
 
-
-    # 2. if the user exists -> check if they know their password, en otras palabras si ingresaron
-    #el password correcto de su cuenta.
     
 
 
