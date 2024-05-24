@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
       @user_password = @user_row["password"]
 
       if BCrypt::Password.new(@user_password) == @user_entered_password
-        cookies["user_id"] = @user_row["id"]
+        session["user_id"] = @user_row["id"]
         flash["notice"] = "Welcome."
         redirect_to "/companies"
       else  
@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
 
   def destroy
     # logout the user
-    cookies["user_id"] = nil
+    session["user_id"] = nil
     flash["notice"] = "Goodbye."
     redirect_to "/login"
   end
