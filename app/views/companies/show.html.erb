@@ -1,28 +1,33 @@
-<h1><%= @company["name"] %></h1>
+<%if @current_user_id_row !=nil%>
 
-<h2><%= @company["city"] %>, <%= @company["state"] %></h2>
+  <h1><%= @company["name"] %></h1>
 
-<h3>Contacts</h3>
+  <h2><%= @company["city"] %>, <%= @company["state"] %></h2>
 
-<ul>
-  <% for contact in @contacts %>
-    <li>
-      <a href="/contacts/<%= contact["id"] %>">
-        <%= contact["last_name"] %>, <%= contact["first_name"] %>
-      </a>
-    </li>
-  <% end %>
-</ul>
+  <h3>Contacts</h3>
 
-<p>
-  <a href="/contacts/new?company_id=<%= @company["id"] %>">New Contact</a>
-</p>
+  <ul>
+    <% for contact in @contacts %>
+      <li>
+        <a href="/contacts/<%= contact["id"] %>">
+          <%= contact["last_name"] %>, <%= contact["first_name"] %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
 
-<p><a href="/companies">Back to All Companies</a></p>
+  <p>
+    <a href="/contacts/new?company_id=<%= @company["id"] %>">New Contact</a>
+  </p>
 
-<p><a href="/companies/<%= @company["id"] %>/edit">Edit Company</a></p>
+  <p><a href="/companies">Back to All Companies</a></p>
 
-<form action="/companies/<%= @company["id"] %>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button>Delete Company</button>
-</form>
+  <p><a href="/companies/<%= @company["id"] %>/edit">Edit Company</a></p>
+
+  <form action="/companies/<%= @company["id"] %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button>Delete Company</button>
+  </form>
+<%else%>
+  You need to login in to view this content
+<%end%>
